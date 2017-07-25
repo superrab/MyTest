@@ -21,6 +21,22 @@ app.get('/js/:fileName', function(req : any, res : any) {
   res.sendFile("C:\\\\Dev\\MyTest\\dist\\" + fileName);
 });
 
+/**
+ * Routes CSS requests
+ */
+app.get('/css/:fileName', function(req : any, res : any) {
+  var fileName : String = req.params.fileName;
+  res.sendFile("C:\\\\Dev\\MyTest\\dist\\" + fileName);
+});
+
+/**
+ * Routes view requests
+ */
+app.get('/partials/:fileName', function(req : any, res : any) {
+  var fileName : String = req.params.fileName;
+  res.sendFile("C:\\\\Dev\\MyTest\\views\\partials\\" + fileName);
+});
+
 app.listen(3000, function () {
   console.log('MyTest app listening on port 3000!')
 });

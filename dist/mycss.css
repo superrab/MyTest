@@ -1,0 +1,11 @@
+.bordered {
+    color: black;
+    font-weight: bold;
+    border-style: solid;
+}
+
+h1 {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}

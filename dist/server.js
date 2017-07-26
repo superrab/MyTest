@@ -9,6 +9,7 @@ var app = express();
  * Landing page
  */
 app.get('/', function (req, res) {
+    console.log("GET: /");
     // res.send('Hello World!')
     res.sendFile("C:\\\\Dev\\MyTest\\views\\index.html");
 });
@@ -16,6 +17,7 @@ app.get('/', function (req, res) {
  * Routes Javascript requests
  */
 app.get('/js/:fileName', function (req, res) {
+    console.log("GET: /js/" + req.params.fileName);
     var fileName = req.params.fileName;
     res.sendFile("C:\\\\Dev\\MyTest\\dist\\" + fileName);
 });
@@ -23,6 +25,7 @@ app.get('/js/:fileName', function (req, res) {
  * Routes CSS requests
  */
 app.get('/css/:fileName', function (req, res) {
+    console.log("GET: /css/" + req.params.fileName);
     var fileName = req.params.fileName;
     res.sendFile("C:\\\\Dev\\MyTest\\dist\\" + fileName);
 });
@@ -30,8 +33,15 @@ app.get('/css/:fileName', function (req, res) {
  * Routes view requests
  */
 app.get('/partials/:fileName', function (req, res) {
+    console.log("GET: /partials/" + req.params.fileName);
     var fileName = req.params.fileName;
     res.sendFile("C:\\\\Dev\\MyTest\\views\\partials\\" + fileName);
+});
+app.post('/login*', function (req, res) {
+    console.log("POST: /login");
+});
+app.post('/registration*', function (req, res) {
+    console.log("POST: /registration");
 });
 app.listen(3000, function () {
     console.log('MyTest app listening on port 3000!');

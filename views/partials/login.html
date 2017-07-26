@@ -1,11 +1,13 @@
-login.html
-<form name="myForm">
-    <div class="row">
-        <div class="col-md-2">User Name:</div>
-        <div class="col-md-2"><input type="text" name="myInputOne" /></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">Password:</div>
-        <div class="col-md-2"><input type="text" name="myInputTwo" /></div>
-    </div>
-</form>
+<div id="msgBar"></div>
+<div class="row">
+    <div class="col-md-2">User Name:</div>
+    <div class="col-md-2"><input type="text" id="txtName" /></div>
+</div>
+<div class="row">
+    <div class="col-md-2">Password:</div>
+    <div class="col-md-2"><input type="text" id="txtPassword" /></div>
+</div>
+<div class="row">
+    <div class="col-md-2"><input onclick="doLogin();" id="btnLogin" type="button" value="Login"/></div>
+    <div class="col-md-2"><input onclick="doRegister();" id="btnRegister" type="button" value="Register"/></div>
+</div>

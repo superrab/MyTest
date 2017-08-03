@@ -6,7 +6,7 @@ window.onload = function (ev) {
     // var containerElement : HTMLElement = <HTMLElement>document.getElementById("container");
     var containerElement = getContainer();
     var partial = new ClientLogin(containerElement);
-    partial.render();
+    partial.render(function () { });
 };
 function doRegister() {
     var name = $("#txtName").val();
@@ -18,22 +18,22 @@ function doRegister() {
 function doLogin() {
     var name = $("#txtName").val();
     var pwd = $("#txtPassword").val();
+    // Temp mock data
+    var productData = [
+        { name: "Nintendo", id: 1 },
+        { name: "Sega", id: 2 },
+        { name: "Jaguar", id: 3 },
+    ];
     console.log("Login: " + name + " : " + pwd);
     $("#msgBar").text("Login: " + name + " : " + pwd);
-    // request login page
+    // request login page with callback to render the grid
+    var loadGrid = function () {
+        var gridHtmlElement = $("#gridContainer")[0];
+        var grid = new RlhGrid(gridHtmlElement);
+        grid.data = productData;
+        grid.render(function () { });
+    };
     //Send to dashboard on success
-    (new ClientDashboard(getContainer())).render();
+    (new ClientDashboard(getContainer())).render(loadGrid);
 }
 ;
-function loadGrid() {
-    var gridHtmlElement = $("#gridContainer")[0];
-    var grid = new RlhGrid(gridHtmlElement);
-    grid.data = productData;
-    grid.render();
-}
-// Temp mock data
-var productData = [
-    { name: "Nintendo", id: 1 },
-    { name: "Sega", id: 2 },
-    { name: "Jaguar", id: 3 },
-];

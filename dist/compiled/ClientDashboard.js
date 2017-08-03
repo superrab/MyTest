@@ -9,6 +9,9 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+/**
+ * Dasbhoard page with grid
+ */
 var ClientDashboard = (function (_super) {
     __extends(ClientDashboard, _super);
     function ClientDashboard(containerElement) {
@@ -19,20 +22,3 @@ var ClientDashboard = (function (_super) {
     }
     return ClientDashboard;
 }(PartialBase));
-function doRegister() {
-    var name = $("#txtName").val();
-    var pwd = $("#txtPassword").val();
-    console.log("Register: " + name + " : " + pwd);
-    $("#msgBar").text("Register: " + name + " : " + pwd);
-}
-;
-function doLogin() {
-    var name = $("#txtName").val();
-    var pwd = $("#txtPassword").val();
-    console.log("Login: " + name + " : " + pwd);
-    $("#msgBar").text("Login: " + name + " : " + pwd);
-    // request login page
-    //Send to dashboard on success
-    (new ClientDashboard(getContainer())).render();
-}
-;

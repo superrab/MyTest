@@ -9,10 +9,7 @@ class PartialBase implements IPartial {
         this.containerElement = containerElement;
     }
 
-    /**
-     * Renders the partial to the provided containerElement
-     */
-    public render() : void {
+    public render(afterRender : () => void) : void {
         //Load the login screen
         var el : HTMLElement = this.containerElement; // have to create a closure for this
 
@@ -20,6 +17,8 @@ class PartialBase implements IPartial {
         var xhr : XMLHttpRequest = $.get(this.partialURL, function(data: any, textStatus: string, jqXHR: JQueryXHR) : any {
             // var msg : string = "data: " + data + ", textStatus: " + textStatus;
             el.innerHTML = data;
+
+            afterRender();
         });
     }
 }

@@ -19,24 +19,38 @@ var RlhGrid = (function (_super) {
         _this.gridID = "aGrid";
         return _this;
     }
-    RlhGrid.prototype.render = function () {
+    RlhGrid.prototype.render = function (afterRender) {
         var el = this.containerElement; // have to create a closure for this
         el.innerText = "Loading...";
         el.innerHTML = this.getHtml();
+        afterRender();
     };
     RlhGrid.prototype.getHtml = function () {
-        var ret = "No data";
+        var ret = "";
         if (!this.data || this.data.length < 1)
-            return ret;
-        ret += "<div id=\"" + this.gridID + "\">";
-        for (var _i = 0, _a = this.data; _i < _a.length; _i++) {
-            var datum = _a[_i];
-            ret += "<div class=\"row\">";
+            return "No data";
+        ret += "<div class=\"container\" id=\"" + this.gridID + "\">";
+        //HEADER
+        ret += "<div class=\"row\">";
+        for (var datumProp in this.data[0]) {
             ret += "<div class=\"col-md-2\">";
             // if ((<any>datum).hasOwnProperdddty()) {
             // }
-            ret += "Product Name Value";
+            ret += datumProp.toString();
             ret += "</div>";
+        }
+        ret += "</div>";
+        //DATA
+        for (var _i = 0, _a = this.data; _i < _a.length; _i++) {
+            var datum = _a[_i];
+            ret += "<div class=\"row\">";
+            for (var datumVal in datum) {
+                ret += "<div class=\"col-md-2\">";
+                // if ((<any>datum).hasOwnProperdddty()) {
+                // }
+                ret += datum[datumVal];
+                ret += "</div>";
+            }
             ret += "</div>";
         }
         ret += "</div>";

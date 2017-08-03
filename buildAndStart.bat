@@ -1,9 +1,10 @@
 @echo on
 
-echo Removing old js files
+echo Clean dist/compiled
+del dist\compiled /F /Q
 
 echo Building js from ts
-call tsc --outDir dist
+call tsc --outDir dist\compiled
 
 echo Starting Node server
 node dist\server.js

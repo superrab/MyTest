@@ -26,6 +26,16 @@ app.get('/js/:fileName', function(req : any, res : any) {
 });
 
 /**
+ * Routes TS requests
+ */
+app.get('/compiled/:fileName', function(req : any, res : any) {
+   console.log("GET: /js/" + req.params.fileName);
+
+  var fileName : String = req.params.fileName;
+  res.sendFile("C:\\\\Dev\\MyTest\\dist\\compiled\\" + fileName);
+});
+
+/**
  * Routes CSS requests
  */
 app.get('/css/:fileName', function(req : any, res : any) {

@@ -25,7 +25,7 @@ app.get('/js/:fileName', function (req, res) {
  * Routes TS requests
  */
 app.get('/compiled/:fileName', function (req, res) {
-    console.log("GET: /compiled/" + req.params.fileName);
+    console.log("GET: /js/" + req.params.fileName);
     var fileName = req.params.fileName;
     res.sendFile("C:\\\\Dev\\MyTest\\dist\\compiled\\" + fileName);
 });

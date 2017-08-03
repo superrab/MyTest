@@ -11,5 +11,5 @@ abstract class PartialDynamicBase implements IPartial {
     /**
      * Renders the partial to the provided containerElement
      */
-    abstract render(afterRender : () => void) : void;
+    abstract render(afterRender? : () => void) : void;
 }

@@ -1,16 +1,18 @@
 /**
- * A grid
+ * A custom grid control that generates its headers and rows dynamically based on the data type / data.
  */
 class RlhGrid<T> extends PartialDynamicBase {
     public gridID : string = "aGrid";
-    public data : T[];
+    public data : T[]; //all data must be the same type
 
-    public render(afterRender : () => void) : void {
+    public render(afterRender? : () => void) : void {
         var el : HTMLElement = this.containerElement; // have to create a closure for this
         el.innerText = "Loading...";
         el.innerHTML = this.getHtml();
 
-        afterRender();
+        if (afterRender) {
+            afterRender();
+        }
     }
 
     private getHtml() : string {
@@ -18,7 +20,7 @@ class RlhGrid<T> extends PartialDynamicBase {
         var ret : string = "";
         if (!this.data || this.data.length < 1) return "No data";
 
-        ret += "<div class=\"container\" id=\"" + this.gridID + "\">";
+        ret += "<div id=\"" + this.gridID + "\">";
 
         //HEADER
         ret += "<div class=\"row\">";

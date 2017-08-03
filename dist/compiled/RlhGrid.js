@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /**
- * A grid
+ * A custom grid control that generates its headers and rows dynamically based on the data type / data.
  */
 var RlhGrid = (function (_super) {
     __extends(RlhGrid, _super);
@@ -23,18 +23,20 @@ var RlhGrid = (function (_super) {
         var el = this.containerElement; // have to create a closure for this
         el.innerText = "Loading...";
         el.innerHTML = this.getHtml();
-        afterRender();
+        if (afterRender) {
+            afterRender();
+        }
     };
     RlhGrid.prototype.getHtml = function () {
         var ret = "";
         if (!this.data || this.data.length < 1)
             return "No data";
-        ret += "<div class=\"container\" id=\"" + this.gridID + "\">";
+        ret += "<div id=\"" + this.gridID + "\">";
         //HEADER
         ret += "<div class=\"row\">";
         for (var datumProp in this.data[0]) {
             ret += "<div class=\"col-md-2\">";
-            // if ((<any>datum).hasOwnProperdddty()) {
+            // if ((<any>datum).hasOwnProperty()) {
             // }
             ret += datumProp.toString();
             ret += "</div>";
@@ -46,7 +48,7 @@ var RlhGrid = (function (_super) {
             ret += "<div class=\"row\">";
             for (var datumVal in datum) {
                 ret += "<div class=\"col-md-2\">";
-                // if ((<any>datum).hasOwnProperdddty()) {
+                // if ((<any>datum).hasOwnProperty()) {
                 // }
                 ret += datum[datumVal];
                 ret += "</div>";

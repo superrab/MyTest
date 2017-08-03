@@ -1,3 +1,4 @@
-So far we have a Node server that serves up an index.html which then imports greeter.js.
+Test javascript application.
 
-Server code goes in server.ts, client code in greeter.ts. Likely we will end up separating the two types of code later on.
+Server serves up index.html which then uses ajax to replace the container of this page. Subsequent calls instantiate
+classes which know what elements in the html to replace and then do so when calling render() with an optional callback afterRender().

@@ -1,5 +1,7 @@
 @echo on
 
+echo Removing old js files
+
 echo Building js from ts
 call tsc --outDir dist
 

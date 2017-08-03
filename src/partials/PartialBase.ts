@@ -1,5 +1,5 @@
 /**
- * Base class for IPartials
+ * Base class for IPartials that load from a static HTML file location
  */
 class PartialBase implements IPartial {
     public containerElement : HTMLElement;

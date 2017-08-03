@@ -11,25 +11,13 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var ClientMain = (function (_super) {
-    __extends(ClientMain, _super);
-    function ClientMain(containerElement) {
+var ClientLogin = (function (_super) {
+    __extends(ClientLogin, _super);
+    function ClientLogin(containerElement) {
         var _this = _super.call(this, containerElement) || this;
         _this.URL = "partials\\login.html";
         _this.partialURL = _this.URL;
         return _this;
     }
-    // public render() {
-    //     //Load the login screen
-    //     var el : HTMLElement = containerElement; // have to create a closure for this
-    //     el.innerText = "Trying to get partial...";
-    //     var xhr : XMLHttpRequest = $.get(this.LOGIN_URL, function(data: any, textStatus: string, jqXHR: JQueryXHR) : any {
-    //         // var msg : string = "data: " + data + ", textStatus: " + textStatus;
-    //         el.innerHTML = data;
-    //     });
-    // }
-    ClientMain.prototype.printMe = function () {
-        return "ClientMain loaded";
-    };
-    return ClientMain;
+    return ClientLogin;
 }(PartialBase));

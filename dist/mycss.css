@@ -4,6 +4,10 @@
     border-style: solid;
 }
 
+.statusBar {
+    color: blue;
+}
+
 h1 {
     text-align: center;
     color: red;

@@ -1,5 +1,16 @@
 Dashboard<BR><br>
-<div id="gridContainer"></div><BR>
+<div id="dashboardMsg" class="statusBar"></div>
+<div class="row">
+    <div id="gridContainer"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"><input id="txtID" type="text" placeholder="Product ID"/></div>
+    <div class="col-md-2"><input id="txtName" type="text" placeholder="Product Name"/></div>
+</div>
+<div class="row">
+    <div class="col-md-2"><input id="btnInsert" type="button" value="Insert" onclick="insertProduct()"/></div>
+    <div class="col-md-2"><input id="btnDelete" type="button" value="Delete" onclick="deleteProduct()"/></div>
+</div>
     <!--
 Sample Grid <BR>
 <div id="sampleGrid">

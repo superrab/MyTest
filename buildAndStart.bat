@@ -7,4 +7,4 @@ echo Building js from ts
 call tsc --outDir dist\compiled
 
 echo Starting Node server
-node dist\compiled\server.js
+node --debug=7000 dist\compiled\server.js

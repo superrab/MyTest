@@ -22,8 +22,16 @@ function doLogin() : void {
     let name : string = $("#txtName").val();
     let pwd : string = $("#txtPassword").val();
 
+    console.log("Login: " + name + " : " + pwd);
+    $("#msgBar").text("Login: " + name + " : " + pwd);
+
+    loadDashboard();
+};
+
+function loadDashboard() : void {
     // Get product data from server
     let productData : Product[] = [];
+    console.log("Trying to get products");
     let productRequest : JQueryXHR = $.getJSON("products", function(data: Product[], textStatus: string, jqXHR: JQueryXHR) : any {
 
         if (data) {
@@ -40,21 +48,64 @@ function doLogin() : void {
         } 
 
     });
-    
-    
 
-
-    console.log("Login: " + name + " : " + pwd);
-    $("#msgBar").text("Login: " + name + " : " + pwd);
-
-    // request login page with callback to render the grid
-    let loadGrid = function() : void {
-        let gridHtmlElement : HTMLElement = $("#gridContainer")[0];
-        let grid : RlhGrid<Product> = new RlhGrid<Product>(gridHtmlElement);
-        grid.data = productData;
-        grid.render(function() {});
+    let afterLoadGrid = function() : void {
+        renderGrid(productData, $("#gridContainer")[0]);
     };
 
     //Send to dashboard on success
-    (new ClientDashboard(getContainer())).render(loadGrid)
+    (new ClientDashboard(getContainer())).render(afterLoadGrid);
+};
+
+/**
+ * Refresh the product grid without reloading the partial
+ */
+function refreshGrid() : void {
+ // Get product data from server
+    let productData : Product[] = [];
+
+    console.log("Trying to get products");
+
+    let productRequest : JQueryXHR = $.getJSON("products", function(data: Product[], textStatus: string, jqXHR: JQueryXHR) : any {
+
+        if (data) {
+
+            for (let d of data) {
+                // OF: Values
+                // IN: Keys
+                console.log("Prod Found: " + d.id + " : " + d.name);
+            }
+
+            productData = data;
+
+            renderGrid(productData, $("#gridContainer")[0]);
+        } else {
+            console.log("No products on server");
+        } 
+
+    });
+};
+
+function renderGrid(data : Product[], gridElement : HTMLElement) {
+    let grid : RlhGrid<Product> = new RlhGrid<Product>(gridElement);
+    grid.data = data;
+    grid.render(function() {});
+}
+
+function insertProduct() : void {
+};
+
+function deleteProduct() : void {
+    let msgBar : HTMLElement = $("#dashboardMsg")[0];
+    let txtProdID : HTMLInputElement = <HTMLInputElement>$("#txtID")[0];
+
+    $.ajax({
+        url: 'products/' + txtProdID.value,
+        type: 'DELETE',
+        success: function(result) {
+            msgBar.innerText = result;
+        }
+    });
+
+    refreshGrid(); // this will wipe out the msg bar with a complete reload of the partial
 };

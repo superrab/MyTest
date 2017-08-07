@@ -30,9 +30,9 @@ function doLogin() : void {
 
 function loadDashboard() : void {
     // Get product data from server
-    let productData : Product[] = [];
+    let productData : any[] = [];
     console.log("Trying to get products");
-    let productRequest : JQueryXHR = $.getJSON("products", function(data: Product[], textStatus: string, jqXHR: JQueryXHR) : any {
+    let productRequest : JQueryXHR = $.getJSON("products", function(data: any, textStatus: string, jqXHR: JQueryXHR) : any {
 
         if (data) {
 
@@ -62,11 +62,11 @@ function loadDashboard() : void {
  */
 function refreshGrid() : void {
  // Get product data from server
-    let productData : Product[] = [];
+    let productData : any[] = [];
 
     console.log("Trying to get products");
 
-    let productRequest : JQueryXHR = $.getJSON("products", function(data: Product[], textStatus: string, jqXHR: JQueryXHR) : any {
+    let productRequest : JQueryXHR = $.getJSON("products", function(data: any, textStatus: string, jqXHR: JQueryXHR) : any {
 
         if (data) {
 
@@ -86,10 +86,19 @@ function refreshGrid() : void {
     });
 };
 
-function renderGrid(data : Product[], gridElement : HTMLElement) {
-    let grid : RlhGrid<Product> = new RlhGrid<Product>(gridElement);
+function renderGrid(data : any, gridElement : HTMLElement) {
+    let grid : RlhGrid<any> = new RlhGrid<any>(gridElement);
     grid.data = data;
     grid.render(function() {});
+
+    // Some notes here: I think that the grid really should be rendered on the server side.
+    // The only reason we can access RlhGrid here is because I don't 'export' it in the class definition.
+    // 'Product' for example is used with 'export' because I needed to use it in the server.js code but that
+    // prevents it from being used on the client side without system.js (which introduces design-time errors.)
+    // I already removed references to Product from this file and replaced all those instances with <any>.
+
+    // Next time I would probably separate client side controls with server-side model classes OR figure out how to
+    // make the imports work on both client and server side with webpack or browserify or something.
 }
 
 function insertProduct() : void {

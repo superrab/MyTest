@@ -13,7 +13,9 @@ var PartialBase = (function () {
         var xhr = $.get(this.partialURL, function (data, textStatus, jqXHR) {
             // var msg : string = "data: " + data + ", textStatus: " + textStatus;
             el.innerHTML = data;
-            afterRender();
+            if (afterRender) {
+                afterRender();
+            }
         });
     };
     return PartialBase;

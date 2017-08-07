@@ -9,7 +9,7 @@ class PartialBase implements IPartial {
         this.containerElement = containerElement;
     }
 
-    public render(afterRender : () => void) : void {
+    public render(afterRender?: () => void) : void {
         //Load the login screen
         var el : HTMLElement = this.containerElement; // have to create a closure for this
 
@@ -18,7 +18,9 @@ class PartialBase implements IPartial {
             // var msg : string = "data: " + data + ", textStatus: " + textStatus;
             el.innerHTML = data;
 
-            afterRender();
+            if (afterRender) {
+                afterRender();
+            }
         });
     }
 }

@@ -19,23 +19,38 @@ function doRegister() : void {
 };
 
 function doLogin() : void {
-    var name : string = $("#txtName").val();
-    var pwd : string = $("#txtPassword").val();
+    let name : string = $("#txtName").val();
+    let pwd : string = $("#txtPassword").val();
 
-    // Temp mock data
-    var productData : Product[] = [
-        { name : "Nintendo", id : 1},
-        { name : "Sega", id : 2},
-        { name : "Jaguar", id : 3},
-    ];
+    // Get product data from server
+    let productData : Product[] = [];
+    let productRequest : JQueryXHR = $.getJSON("products", function(data: Product[], textStatus: string, jqXHR: JQueryXHR) : any {
+
+        if (data) {
+
+            for (let d of data) {
+                // OF: Values
+                // IN: Keys
+                console.log("Prod Found: " + d.id + " : " + d.name);
+            }
+
+            productData = data;
+        } else {
+            console.log("No products on server");
+        } 
+
+    });
+    
+    
+
 
     console.log("Login: " + name + " : " + pwd);
     $("#msgBar").text("Login: " + name + " : " + pwd);
 
     // request login page with callback to render the grid
-    var loadGrid = function() : void {
-        var gridHtmlElement : HTMLElement = $("#gridContainer")[0];
-        var grid : RlhGrid<Product> = new RlhGrid<Product>(gridHtmlElement);
+    let loadGrid = function() : void {
+        let gridHtmlElement : HTMLElement = $("#gridContainer")[0];
+        let grid : RlhGrid<Product> = new RlhGrid<Product>(gridHtmlElement);
         grid.data = productData;
         grid.render(function() {});
     };

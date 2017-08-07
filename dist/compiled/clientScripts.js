@@ -18,12 +18,22 @@ function doRegister() {
 function doLogin() {
     var name = $("#txtName").val();
     var pwd = $("#txtPassword").val();
-    // Temp mock data
-    var productData = [
-        { name: "Nintendo", id: 1 },
-        { name: "Sega", id: 2 },
-        { name: "Jaguar", id: 3 },
-    ];
+    // Get product data from server
+    var productData = [];
+    var productRequest = $.getJSON("products", function (data, textStatus, jqXHR) {
+        if (data) {
+            for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+                var d = data_1[_i];
+                // OF: Values
+                // IN: Keys
+                console.log("Prod Found: " + d.id + " : " + d.name);
+            }
+            productData = data;
+        }
+        else {
+            console.log("No products on server");
+        }
+    });
     console.log("Login: " + name + " : " + pwd);
     $("#msgBar").text("Login: " + name + " : " + pwd);
     // request login page with callback to render the grid

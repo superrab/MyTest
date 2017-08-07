@@ -54,3 +54,15 @@ app.post('/registration*', function (req, res) {
 app.listen(3000, function () {
     console.log('MyTest app listening on port 3000!');
 });
+// REST API services - figure out how to put these into a different file later
+// Temp mock data
+var productData = [
+    { name: "Nintendo", id: 1 },
+    { name: "Sega", id: 2 },
+    { name: "Jaguar", id: 3 },
+];
+app.get('/products/', function (req, res) {
+    console.log("GET: /products/");
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(productData));
+});

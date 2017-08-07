@@ -46,7 +46,7 @@ var RlhGrid = (function (_super) {
         for (var _i = 0, _a = this.data; _i < _a.length; _i++) {
             var datum = _a[_i];
             ret += "<div class=\"row\">";
-            for (var datumVal in datum) {
+            for (var datumVal in this.data[0]) {
                 ret += "<div class=\"col-md-2\">";
                 // if ((<any>datum).hasOwnProperty()) {
                 // }

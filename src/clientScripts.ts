@@ -93,6 +93,18 @@ function renderGrid(data : Product[], gridElement : HTMLElement) {
 }
 
 function insertProduct() : void {
+    let msgBar : HTMLElement = $("#dashboardMsg")[0];
+    let txtProdID : HTMLInputElement = <HTMLInputElement>$("#txtID")[0];
+    let txtProdName : HTMLInputElement = <HTMLInputElement>$("#txtName")[0];
+
+    $.post({
+        url: 'products/' + txtProdID.value + '/' + txtProdName.value,
+        success: function(result) {
+            msgBar.innerText = result;
+        }
+    });
+
+    refreshGrid(); // this will wipe out the msg bar with a complete reload of the partial
 };
 
 function deleteProduct() : void {

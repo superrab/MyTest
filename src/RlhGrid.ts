@@ -40,7 +40,7 @@ class RlhGrid<T> extends PartialDynamicBase {
         for (let datum of this.data) {
             ret += "<div class=\"row\">";
 
-            for (let datumVal in datum) {
+            for (let datumVal in this.data[0]) { // use the first instance for the ordering of the col values
                 ret += "<div class=\"col-md-2\">";
 
                 // if ((<any>datum).hasOwnProperty()) {

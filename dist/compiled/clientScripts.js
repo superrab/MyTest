@@ -78,6 +78,16 @@ function renderGrid(data, gridElement) {
     grid.render(function () { });
 }
 function insertProduct() {
+    var msgBar = $("#dashboardMsg")[0];
+    var txtProdID = $("#txtID")[0];
+    var txtProdName = $("#txtName")[0];
+    $.post({
+        url: 'products/' + txtProdID.value + '/' + txtProdName.value,
+        success: function (result) {
+            msgBar.innerText = result;
+        }
+    });
+    refreshGrid(); // this will wipe out the msg bar with a complete reload of the partial
 }
 ;
 function deleteProduct() {

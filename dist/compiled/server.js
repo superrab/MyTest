@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //Dependencies
 var express = require("express");
 // import express = require("express");
+var Product_1 = require("./Product");
 var app = express();
 //Controller mappings
 /**
@@ -79,30 +80,42 @@ var productExists = function (productID) {
     return ret;
 };
 var insertProduct = function (id, name) {
-    var prod = new Product();
+    var prod = new Product_1.Product();
     prod.id = id;
     prod.name = name;
     productData.push(prod);
+    productData = productData.sort(function (a, b) {
+        var innerRet = 0;
+        if (a.id == b.id) {
+            innerRet = 0;
+        }
+        else if (a.id > b.id) {
+            innerRet = 1;
+        }
+        else {
+            innerRet = -1;
+        }
+        return innerRet;
+    }); // end sort
 };
 /**
  * Insert a product
  */
 app.post('/products/:id/:name', function (req, res) {
     console.log("POST: /products/" + req.params.id + "/" + req.params.name);
-    if (!(typeof req.params.id === 'number')) {
-        console.log("Product ID must be a number");
+    res.setHeader('Content-Type', 'text/plain');
+    var ret = "";
+    try {
+        var prodID = parseInt(req.params.id);
+        var prodName = req.params.name;
+        insertProduct(prodID, prodName);
+        ret = "Inserted " + prodID + " : " + prodName;
     }
-    else if (!(typeof req.params.name === 'string')) {
-        console.log("Product name must be a string");
+    catch (ex) {
+        ret = "Invalid inputs for insertion.";
+        console.log(ex);
     }
-    else if (productExists(req.params.id)) {
-        console.log("Product already exists and is being replaced!");
-        insertProduct(req.params.id, req.params.name);
-    }
-    else {
-        console.log("Inserting new product!");
-        insertProduct(req.params.id, req.params.name);
-    }
+    res.send(ret);
 });
 /**
  * Delete a product

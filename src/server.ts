@@ -1,6 +1,9 @@
 //Dependencies
 import * as express from "express";
 // import express = require("express");
+
+import { Product } from "./Product";
+
 const app = express();
 
 //Controller mappings
@@ -104,6 +107,20 @@ let insertProduct = function(id:number, name:string) : void {
   prod.id = id;
   prod.name = name;
   productData.push(prod);
+
+  productData = productData.sort(function (a: Product, b: Product) : number {
+    let innerRet : number = 0;
+
+    if (a.id == b.id) {
+      innerRet = 0;
+    } else if (a.id > b.id) {
+      innerRet = 1;
+    } else {
+      innerRet = -1;
+    }
+
+    return innerRet;
+  }); // end sort
 };
 
 /**
@@ -111,18 +128,22 @@ let insertProduct = function(id:number, name:string) : void {
  */
 app.post('/products/:id/:name', function(req : any, res : any) {
   console.log("POST: /products/" + req.params.id + "/" + req.params.name);
+  res.setHeader('Content-Type', 'text/plain');
+  let ret : string = "";
 
-  if (!(typeof req.params.id === 'number')) {
-    console.log("Product ID must be a number");
-  } else if (!(typeof req.params.name === 'string')) {
-    console.log("Product name must be a string");
-  } else if (productExists(req.params.id)) {
-    console.log("Product already exists and is being replaced!")
-    insertProduct(req.params.id, req.params.name);
-  } else {
-    console.log("Inserting new product!")
-    insertProduct(req.params.id, req.params.name);
+  try {
+    let prodID : number = parseInt(req.params.id);
+    let prodName : string = req.params.name;
+
+    insertProduct(prodID, prodName);
+
+    ret = "Inserted " + prodID + " : " + prodName;
+  } catch (ex) {
+    ret = "Invalid inputs for insertion.";
+    console.log(ex);
   }
+
+  res.send(ret);
 });
 
 /**

@@ -76,6 +76,13 @@ function renderGrid(data, gridElement) {
     var grid = new RlhGrid(gridElement);
     grid.data = data;
     grid.render(function () { });
+    // Some notes here: I think that the grid really should be rendered on the server side.
+    // The only reason we can access RlhGrid here is because I don't 'export' it in the class definition.
+    // 'Product' for example is used with 'export' because I needed to use it in the server.js code but that
+    // prevents it from being used on the client side without system.js (which introduces design-time errors.)
+    // I already removed references to Product from this file and replaced all those instances with <any>.
+    // Next time I would probably separate client side controls with server-side model classes OR figure out how to
+    // make the imports work on both client and server side with webpack or browserify or something.
 }
 function insertProduct() {
     var msgBar = $("#dashboardMsg")[0];

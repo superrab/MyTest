@@ -17,6 +17,10 @@ var RlhGrid = (function (_super) {
     function RlhGrid() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.gridID = "aGrid";
+        /**
+         * Specify which columns should not be shown
+         */
+        _this.hideCols = [];
         return _this;
     }
     RlhGrid.prototype.render = function (afterRender) {
@@ -35,6 +39,8 @@ var RlhGrid = (function (_super) {
         //HEADER
         ret += "<div class=\"row\">";
         for (var datumProp in this.data[0]) {
+            if (this.hideCols.indexOf(datumProp.toString()) > -1)
+                continue; // don't draw this header if it's in hidecols
             ret += "<div class=\"col-md-2\">";
             // if ((<any>datum).hasOwnProperty()) {
             // }
@@ -47,6 +53,8 @@ var RlhGrid = (function (_super) {
             var datum = _a[_i];
             ret += "<div class=\"row\">";
             for (var datumVal in this.data[0]) {
+                if (this.hideCols.indexOf(datumVal.toString()) > -1)
+                    continue; // hide col if in hidecols
                 ret += "<div class=\"col-md-2\">";
                 // if ((<any>datum).hasOwnProperty()) {
                 // }

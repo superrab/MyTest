@@ -88,6 +88,7 @@ function refreshGrid() : void {
 
 function renderGrid(data : any, gridElement : HTMLElement) {
     let grid : RlhGrid<any> = new RlhGrid<any>(gridElement);
+    grid.hideCols.push("_id");
     grid.data = data;
     grid.render(function() {});
 

@@ -74,6 +74,7 @@ function refreshGrid() {
 ;
 function renderGrid(data, gridElement) {
     var grid = new RlhGrid(gridElement);
+    grid.hideCols.push("_id");
     grid.data = data;
     grid.render(function () { });
     // Some notes here: I think that the grid really should be rendered on the server side.

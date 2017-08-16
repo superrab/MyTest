@@ -1,10 +1,29 @@
 //Dependencies
 import * as express from "express";
+import * as mongo from "mongodb";
 // import express = require("express");
 
 import { Product } from "./Product";
 
 const app = express();
+
+//Mongo
+mongo.MongoClient.connect('mongodb://localhost:27017/MyTest', function (err, db) {
+  if (err) throw err
+
+  console.log("Connected to MongoDB");
+
+  db.collection('product').find().toArray(function (err, result) {
+    if (err) throw err
+
+    let castedResults : Product[] = result as Product[];
+
+    console.log("Contents of MyTest/product: ");
+    for (let x of castedResults) {
+      console.log(JSON.stringify(x));
+    }
+  })
+})
 
 //Controller mappings
 

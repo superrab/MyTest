@@ -2,9 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 //Dependencies
 var express = require("express");
+var mongo = require("mongodb");
 // import express = require("express");
 var Product_1 = require("./Product");
 var app = express();
+//Mongo
+mongo.MongoClient.connect('mongodb://localhost:27017/MyTest', function (err, db) {
+    if (err)
+        throw err;
+    console.log("Connected to MongoDB");
+    db.collection('product').find().toArray(function (err, result) {
+        if (err)
+            throw err;
+        var castedResults = result;
+        console.log("Contents of MyTest/product: ");
+        for (var _i = 0, castedResults_1 = castedResults; _i < castedResults_1.length; _i++) {
+            var x = castedResults_1[_i];
+            console.log(JSON.stringify(x));
+        }
+    });
+});
 //Controller mappings
 /**
  * Landing page
